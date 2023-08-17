@@ -142,3 +142,10 @@ describe('Broken path', () => {
     expect(() => PathWalker(map)).toThrowError('Invalid map: No clear initial direction. Broken path.')
   })
 })
+
+describe('Fake turn', () => {
+  it('ERROR --> Fake turn', () => {
+    const map = [['@', '-', 'A', '-', '+', '-', 'B', '-', 'x']]
+    expect(() => PathWalker(map)).toThrowError('Fake turn encountered in the map.')
+  })
+})
