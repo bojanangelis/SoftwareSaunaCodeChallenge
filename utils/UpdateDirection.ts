@@ -47,6 +47,21 @@ export const updateDirection = (map: string[][], currentDirection: Direction, po
         }
         break
     }
+
+    // New Logic: If the current character is a letter and there's no clear direction,
+    // check the next possible positions for another letter and move towards it.
+    if (isLetter(currentChar)) {
+      const directions: Direction[] = ['RIGHT', 'LEFT', 'UP', 'DOWN']
+      for (const dir of directions) {
+        const potentialNextPos = getNextPosition(dir, position)
+        const potentialNextChar = isValidPosition(map, potentialNextPos)
+          ? map[potentialNextPos.y][potentialNextPos.x]
+          : ' '
+        if (isLetter(potentialNextChar)) {
+          return dir
+        }
+      }
+    }
   } else {
     return currentDirection // If not at an intersection or a letter, continue in the same direction
   }

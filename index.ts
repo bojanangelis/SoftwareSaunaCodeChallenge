@@ -18,6 +18,12 @@ const PathWalker = (
   let currentChar = map[currentPos.y][currentPos.x]
   let nextPos = getNextPosition(direction, currentPos)
 
+  const visitedPositions: Position[] = []
+
+  const isVisited = (pos: Position) => {
+    return visitedPositions.some((v) => v.x === pos.x && v.y === pos.y)
+  }
+
   while (currentChar.toLowerCase() !== 'x' && isValidPosition(map, currentPos)) {
     // Update direction first
     direction = updateDirection(map, direction, currentPos)
@@ -28,9 +34,12 @@ const PathWalker = (
 
     path += currentChar
 
-    if (isLetter(currentChar) && currentChar.toLowerCase() !== 'x') {
+    if (isLetter(currentChar) && currentChar.toLowerCase() !== 'x' && !isVisited(currentPos)) {
       letters += currentChar
     }
+
+    visitedPositions.push(currentPos)
+
     nextPos = getNextPosition(direction, currentPos)
   }
 
