@@ -19,10 +19,6 @@ const PathWalker = (
   let nextPos = getNextPosition(direction, currentPos)
 
   while (currentChar.toLowerCase() !== 'x' && isValidPosition(map, currentPos)) {
-    if (currentChar.toLowerCase() === 'x') {
-      break
-    }
-
     // Update direction first
     direction = updateDirection(map, direction, currentPos)
 

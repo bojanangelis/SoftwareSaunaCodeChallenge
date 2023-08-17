@@ -1,6 +1,8 @@
 import { Direction } from '../types/Direction'
 import { Position } from '../types/Position'
+import { getNextPosition } from './GetNextPosition'
 import { isLetter } from './IsLetter'
+import { isValidPosition } from './IsValidPosition'
 
 export const updateDirection = (map: string[][], currentDirection: Direction, position: Position): Direction => {
   const { x, y } = position
@@ -10,7 +12,21 @@ export const updateDirection = (map: string[][], currentDirection: Direction, po
     return currentDirection
   }
 
-  if (currentChar === '+') {
+  if (currentChar === '+' || isLetter(currentChar)) {
+    const nextPos = getNextPosition(currentDirection, position)
+    const nextChar = isValidPosition(map, nextPos) ? map[nextPos.y][nextPos.x] : ' '
+
+    if (isLetter(currentChar) && nextChar === '+') {
+      return currentDirection
+    }
+
+    const isClearAhead =
+      currentDirection === 'LEFT' || currentDirection === 'RIGHT' ? nextChar === '-' : nextChar === '|'
+
+    if (isClearAhead) {
+      return currentDirection
+    }
+
     switch (currentDirection) {
       case 'RIGHT':
       case 'LEFT':
@@ -32,7 +48,7 @@ export const updateDirection = (map: string[][], currentDirection: Direction, po
         break
     }
   } else {
-    return currentDirection // If not at an intersection, continue in the same direction
+    return currentDirection // If not at an intersection or a letter, continue in the same direction
   }
 
   throw new Error(
