@@ -10,5 +10,5 @@ export const findInitialDirection = (map: string[][], position: Position): Direc
   if (map[y + 1] && (map[y + 1][x] === '|' || isLetter(map[y + 1][x]))) return 'DOWN'
   if (map[y - 1] && (map[y - 1][x] === '|' || isLetter(map[y - 1][x]))) return 'UP'
 
-  throw new Error('Invalid map: No clear initial direction')
+  throw new Error('Invalid map: No clear initial direction. Broken path.')
 }

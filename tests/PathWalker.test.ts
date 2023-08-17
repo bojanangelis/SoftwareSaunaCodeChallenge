@@ -65,6 +65,8 @@ describe('Do not collect a letter from the same location twice', () => {
   })
 })
 
+// Don't work this...
+
 // describe('Keep direction, even in a compact space', () => {
 //   it('should collect letters and determine path for Keep direction, even in a compact space', () => {
 //     const map = [
@@ -125,5 +127,18 @@ describe('Missing end character', () => {
     if (!containsEndSymbol(map)) {
       throw new Error('Test map is missing the "x" character.')
     }
+  })
+})
+
+describe('Broken path', () => {
+  it('ERROR --> Broken path', () => {
+    const map = [
+      [' ', '-', '-', '-', 'A', '-', ' ', ' ', '+'],
+      ['@', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|'],
+      [' ', '-', 'B', '-', '+', ' ', ' ', ' ', 'C'],
+      [' ', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|'],
+      [' ', ' ', ' ', ' ', '+', '-', '-', '-', '+'],
+    ]
+    expect(() => PathWalker(map)).toThrowError('Invalid map: No clear initial direction. Broken path.')
   })
 })
