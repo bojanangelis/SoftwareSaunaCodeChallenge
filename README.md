@@ -17,6 +17,3 @@ Collected letters
 Path as characters
 
 ##########################################################################################################################################
-
-Hey there, this is my solution for this project.
-How to start just do yarn in the terminal to install al the 
